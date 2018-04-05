@@ -119,6 +119,13 @@ func (ipt *IPTables) Insert(table, chain string, pos int, rulespec ...string) er
 	return ipt.run(cmd...)
 }
 
+// Insert inserts rulespec to specified table/chain (in specified pos)
+func (ipt *IPTables) InsertChain(table, chain string, chain2 string) error {
+	cmd := append([]string{"-t", table, "-I", chain, "-j", chain2 }, []string{}...)
+	return ipt.run(cmd...)
+}
+
+
 // Append appends rulespec to specified table/chain
 func (ipt *IPTables) Append(table, chain string, rulespec ...string) error {
 	cmd := append([]string{"-t", table, "-A", chain}, rulespec...)
